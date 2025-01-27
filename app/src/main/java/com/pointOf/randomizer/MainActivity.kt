@@ -188,7 +188,7 @@ fun DiceWithButtonAndImage() {
             Button(
                 onClick = {
                     result = (1..3).random()
-                    result2 = (1..8).random()
+                    result2 = (1..10).random()
                 },
                 modifier = Modifier
                     .fillMaxWidth()
