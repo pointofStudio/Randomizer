@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Randomizer</string>
+    <string name="roll">"Lancia "</string>
+    <string name="additionalFormText">Dateci un feedback riguardo a questa app</string>
+</resources>
