@@ -158,7 +158,9 @@ fun DiceWithButtonAndImage() {
         5 -> R.drawable.dice_4
         6 -> R.drawable.dice_5
         7 -> R.drawable.dice_6
-        else -> R.drawable.dice_7
+        8 -> R.drawable.dice_7
+        9 -> R.drawable.dice_8
+        else -> R.drawable.dice_9
     }
     Column (modifier = Modifier){
         
