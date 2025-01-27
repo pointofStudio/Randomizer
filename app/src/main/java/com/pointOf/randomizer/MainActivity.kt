@@ -1,14 +1,10 @@
 package com.pointOf.randomizer
 
 
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.launch
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +20,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -44,47 +39,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalProvider
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
 import com.google.firebase.Firebase
 import com.google.firebase.appdistribution.InterruptionLevel
 import com.google.firebase.appdistribution.appDistribution
 import com.pointOf.randomizer.ui.theme.RandomizerTheme
 
 
-
 class MainActivity : ComponentActivity() {
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Firebase.appDistribution.showFeedbackNotification(
-            // Text providing notice to your testers about collection and
-            // processing of their feedback data
             R.string.additionalFormText,
-            // The level of interruption for the notification
-            InterruptionLevel.HIGH)
+            InterruptionLevel.HIGH
+        )
         enableEdgeToEdge()
         setContent {
             RandomizerTheme {
                 App()
             }
         }
-
-
     }
-
-
-
-
 }
 
 
@@ -93,10 +73,7 @@ class MainActivity : ComponentActivity() {
 @Preview(showSystemUi = true)
 @Composable
 fun DiceRollerApp() {
-    DiceWithButtonAndImage(modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize()
-    )
+    DiceWithButtonAndImage()
 }
 
 @Preview(showSystemUi = true)
@@ -108,7 +85,7 @@ fun DiceRollerApp2() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App(modifier: Modifier = Modifier){
+fun App() {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -137,12 +114,8 @@ fun App(modifier: Modifier = Modifier){
                 .fillMaxWidth()
                 .fillMaxHeight()) {
                 Spacer(modifier = Modifier.height(55.dp))
-//                CrashButtonScreen()
                 Spacer(modifier = Modifier.height(55.dp))
-                DiceWithButtonAndImage(modifier
-                    .fillMaxSize()
-                    .fillMaxWidth()
-                    .fillMaxHeight())
+                DiceWithButtonAndImage()
                 Spacer(modifier = Modifier.height(200.dp))
                 CrashButtonScreen()
             }
@@ -169,7 +142,7 @@ fun CrashButtonScreen() {
 }
 
 @Composable
-fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
+fun DiceWithButtonAndImage() {
     var result by remember { mutableStateOf( 1) }
     var result2 by remember { mutableStateOf( 1) }
     val imageResource = when(result) {
@@ -210,16 +183,6 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
 
         Row (modifier = Modifier.padding(10.dp)){
 
-//            Button(
-//                onClick = {
-//                    result = (1..3).random()
-//                    result2 = (1..8).random()
-//                },
-//                colors = androidx.compose.material3.ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary),
-//                modifier = Modifier.fillMaxWidth()
-//            ) {
-//                Text(text = stringResource(R.string.roll), fontSize = 24.sp)
-//            }
             Button(
                 onClick = {
                     result = (1..3).random()
@@ -251,12 +214,7 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
                     )
                 }
             }
-
         }
-
-
-
     }
-
 }
 
