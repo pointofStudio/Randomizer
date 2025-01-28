@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -83,7 +84,7 @@ fun Settantanove() {
                 Spacer(modifier = Modifier.height(55.dp))
                 SettantanoveData()
                 Spacer(modifier = Modifier.height(200.dp))
-//                CrashButtonScreen()
+                CrashButtonScreen()
             }
 
         }
@@ -94,8 +95,19 @@ fun Settantanove() {
 }
 
 
-
-
+@Composable
+fun CrashButtonScreen() {
+    Button(
+        onClick = {
+            throw RuntimeException("Test Crash") // Forza un crash
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(48.dp),
+    ) {
+        Icon(painter = painterResource(R.drawable.round_app_blocking_24), contentDescription = null)
+    }
+}
 
 
 @Composable
