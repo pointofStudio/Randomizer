@@ -2,11 +2,13 @@ package com.pointOf.randomizer.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,9 +35,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pointOf.randomizer.R
@@ -84,7 +89,6 @@ fun Settantanove() {
                 Spacer(modifier = Modifier.height(55.dp))
                 SettantanoveData()
                 Spacer(modifier = Modifier.height(200.dp))
-                CrashButtonScreen()
             }
 
         }
@@ -95,19 +99,6 @@ fun Settantanove() {
 }
 
 
-@Composable
-fun CrashButtonScreen() {
-    Button(
-        onClick = {
-            throw RuntimeException("Test Crash") // Forza un crash
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(48.dp),
-    ) {
-        Icon(painter = painterResource(R.drawable.round_app_blocking_24), contentDescription = null)
-    }
-}
 
 
 @Composable
@@ -136,23 +127,41 @@ fun SettantanoveData() {
         9 -> R.drawable.dice_8
         else -> R.drawable.dice_9
     }
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
     Column (modifier = Modifier){
 
-        Row {
-            Image(
-                painter = painterResource(imageResource),
-                contentDescription = result.toString(),
+        Row (modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp)){
+            Column(
                 modifier = Modifier
-                    .height(200.dp)
-                    .width(200.dp)
-            )
-            Image(
-                painter = painterResource(imageResource2),
-                contentDescription = result.toString(),
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(id = imageResource),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f),
+                    contentScale = ContentScale.Fit
+                )
+            }
+            Column(
                 modifier = Modifier
-                    .height(200.dp)
-                    .width(200.dp)
-            )
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(id = imageResource2),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f),
+                    contentScale = ContentScale.Fit
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(10.dp))

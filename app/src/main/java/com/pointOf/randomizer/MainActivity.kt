@@ -2,6 +2,7 @@ package com.pointOf.randomizer
 
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -15,12 +16,16 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,6 +33,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -144,9 +150,9 @@ fun App(){
                         }
                     }
 
-                    Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
+                    Row() {
                         Button(onClick = { AppRouter.navigateTo(Screen.Ottantanove) }) {
-                            Text(stringResource(R.string.novantanovefaces) )
+                            Text(stringResource(R.string.ottantanovefaces) )
                         }
                         Spacer(modifier = Modifier.width(15.dp))
                         Button(onClick = { AppRouter.navigateTo(Screen.Novantanove) }) {
@@ -155,6 +161,11 @@ fun App(){
                     }
 
                 }
+
+            }
+            Column (verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.CenterHorizontally){
+                CrashButtonScreen()
+                Spacer(modifier = Modifier.height(25.dp))
             }
 
         }
@@ -206,3 +217,18 @@ fun HomeApp(){
 
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun CrashButtonScreen() {
+    OutlinedButton(
+        onClick = {
+            throw RuntimeException("Test Crash") // Forza un crash
+        },
+        modifier = Modifier
+            .height(3.dp)
+            .width(3.dp),
+        colors = androidx.compose.material3.ButtonDefaults.buttonColors(Color.Transparent)
+    ) {}
+}
+

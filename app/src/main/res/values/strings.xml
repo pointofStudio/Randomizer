@@ -17,7 +17,7 @@
     <string name="app_name">Randomizer</string>
     <string name="roll">"Roll "</string>
     <string name="additionalFormText">Give us a feedback about this app</string>
-    <string name="sixfaces">Up to 6  </string>
+    <string name="sixfaces">Up to 06  </string>
     <string name="ventinovefaces">Up to 29</string>
     <string name="trentanovefaces">Up to 39</string>
     <string name="quarantanovefaces">Up to 49</string>
@@ -27,7 +27,7 @@
 
     <string name="novantanovefaces">Up to 99</string>
     <string name="welcome">Welcome to Randomizer</string>
-    <string name="description">Select the maximum result in the buttons</string>
+    <string name="description">Select the maximum result</string>
 
 
 </resources>
