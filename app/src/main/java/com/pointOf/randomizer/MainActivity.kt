@@ -31,9 +31,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,6 +44,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.Firebase
+import com.google.firebase.appdistribution.FirebaseAppDistributionException
 import com.google.firebase.appdistribution.InterruptionLevel
 import com.google.firebase.appdistribution.appDistribution
 import com.pointOf.randomizer.Screens.Cinquantanove
@@ -60,13 +64,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Firebase.appDistribution.showFeedbackNotification(
+            // Text providing notice to your testers about collection and
+            // processing of their feedback data
             R.string.additionalFormText,
-            InterruptionLevel.HIGH
-        )
+            // The level of interruption for the notification
+            InterruptionLevel.HIGH)
         enableEdgeToEdge()
         setContent {
             RandomizerTheme {
                 HomeApp()
+            }
+            LaunchedEffect(key1 = true) {
+                checkForAppUpdates()
             }
         }
     }
@@ -75,13 +84,41 @@ class MainActivity : ComponentActivity() {
 
 
 
+private fun checkForAppUpdates() {
+    val firebaseAppDistribution = Firebase.appDistribution
+    firebaseAppDistribution.updateIfNewReleaseAvailable()
+        .addOnProgressListener { updateProgress ->
+            // (Optional) Implement custom progress updates in addition to
+            // automatic NotificationManager updates.
+            val progress = updateProgress.apkBytesDownloaded * 100 / updateProgress.apkFileTotalBytes
+            println("Download progress: $progress%")
+        }
+        .addOnFailureListener { e ->
+            // (Optional) Handle errors.
+            if (e is FirebaseAppDistributionException) {
+                when (e.errorCode) {
+                    FirebaseAppDistributionException.Status.NOT_IMPLEMENTED -> {
+                        // SDK did nothing. This is expected when building for Play.
+                        println("App Distribution: NOT_IMPLEMENTED")
+                    }
+
+                    else -> {
+                        // Handle other errors.
+                        println("App Distribution error: ${e.errorCode}")
+                    }
+                }
+            }
+        }
+}
 
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
+@Preview(device = "spec:width=720px,height=1600px,dpi=269")
 @Composable
 fun App(){
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -120,47 +157,82 @@ fun App(){
                     Text(stringResource(R.string.description), fontSize = 18.sp, fontWeight = FontWeight.Normal, color = MaterialTheme.colorScheme.secondary)
                 }
                 Spacer(modifier = Modifier.height(55.dp))
-                Column {
-                    Row {
-                        Button(onClick = { AppRouter.navigateTo(Screen.SixFaces) }) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth() // Make the Column fill the width
+                        .padding(horizontal = 24.dp) // Add horizontal padding
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Button(
+                            onClick = { AppRouter.navigateTo(Screen.SixFaces) },
+                            modifier = Modifier.weight(1f) // Make the Button fill the width
+                        ) {
                             Text(stringResource(R.string.sixfaces))
                         }
-                        Spacer(modifier = Modifier.width(15.dp))
-                        Button(onClick = { AppRouter.navigateTo(Screen.Ventinove) }) {
+                        Spacer(modifier = Modifier.width(16.dp)) // Add space between buttons
+                        Button(
+                            onClick = { AppRouter.navigateTo(Screen.Ventinove) },
+                            modifier = Modifier.weight(1f) // Make the Button fill the width
+                        ) {
                             Text(stringResource(R.string.ventinovefaces))
-
                         }
                     }
-                    Row {
-                        Button(onClick = { AppRouter.navigateTo(Screen.Trentanove) }) {
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Button(
+                            onClick = { AppRouter.navigateTo(Screen.Trentanove) },
+                            modifier = Modifier.weight(1f) // Make the Button fill the width
+                        ) {
                             Text(stringResource(R.string.trentanovefaces))
                         }
-                        Spacer(modifier = Modifier.width(15.dp))
-                        Button(onClick = { AppRouter.navigateTo(Screen.Quarantanove) }) {
+                        Spacer(modifier = Modifier.width(16.dp)) // Add space between buttons
+                        Button(
+                            onClick = { AppRouter.navigateTo(Screen.Quarantanove) },
+                            modifier = Modifier.weight(1f) // Make the Button fill the width
+                        ) {
                             Text(stringResource(R.string.quarantanovefaces))
                         }
                     }
-
-                    Row {
-                        Button(onClick = { AppRouter.navigateTo(Screen.Cinquantanove) }) {
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Button(
+                            onClick = { AppRouter.navigateTo(Screen.Cinquantanove) },
+                            modifier = Modifier.weight(1f) // Make the Button fill the width
+                        ) {
                             Text(stringResource(R.string.cinquantanovefaces))
                         }
-                        Spacer(modifier = Modifier.width(15.dp))
-                        Button(onClick = { AppRouter.navigateTo(Screen.Settantanove) }) {
+                        Spacer(modifier = Modifier.width(16.dp)) // Add space between buttons
+                        Button(
+                            onClick = { AppRouter.navigateTo(Screen.Settantanove) },
+                            modifier = Modifier.weight(1f) // Make the Button fill the width
+                        ) {
                             Text(stringResource(R.string.settantanovefaces))
                         }
                     }
-
-                    Row() {
-                        Button(onClick = { AppRouter.navigateTo(Screen.Ottantanove) }) {
-                            Text(stringResource(R.string.ottantanovefaces) )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Button(
+                            onClick = { AppRouter.navigateTo(Screen.Ottantanove) },
+                            modifier = Modifier.weight(1f) // Make the Button fill the width
+                        ) {
+                            Text(stringResource(R.string.ottantanovefaces))
                         }
-                        Spacer(modifier = Modifier.width(15.dp))
-                        Button(onClick = { AppRouter.navigateTo(Screen.Novantanove) }) {
-                            Text(stringResource(R.string.novantanovefaces) )
+                        Spacer(modifier = Modifier.width(16.dp)) // Add space between buttons
+                        Button(
+                            onClick = { AppRouter.navigateTo(Screen.Novantanove) },
+                            modifier = Modifier.weight(1f) // Make the Button fill the width
+                        ) {
+                            Text(stringResource(R.string.novantanovefaces))
                         }
                     }
-
                 }
 
             }
@@ -227,8 +299,8 @@ fun CrashButtonScreen() {
             throw RuntimeException("Test Crash") // Forza un crash
         },
         modifier = Modifier
-            .height(3.dp)
-            .width(3.dp),
+            .height(1.dp)
+            .width(1.dp),
         colors = androidx.compose.material3.ButtonDefaults.buttonColors(Color.Transparent)
     ) {}
 }

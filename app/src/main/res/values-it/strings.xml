@@ -3,7 +3,7 @@
     <string name="app_name">Randomizer</string>
     <string name="roll">"Lancia "</string>
     <string name="additionalFormText">Dateci un feedback riguardo a questa app</string>
-    <string name="sixfaces">"Fino a 06  "</string>
+    <string name="sixfaces">Fino a 06</string>
     <string name="ventinovefaces">Fino a 29</string>
     <string name="trentanovefaces">Fino a 39</string>
     <string name="quarantanovefaces">Fino a 49</string>
@@ -13,4 +13,15 @@
     <string name="novantanovefaces">Fino a 79</string>
     <string name="welcome">Benvenuto in Randomizer</string>
     <string name="description">Seleziona il massimo riusultato</string>
+    <string name="dice_text_0">0</string>
+    <string name="dice_text_1">1</string>
+    <string name="dice_text_2">2</string>
+    <string name="dice_text_3">3</string>
+    <string name="dice_text_4">4</string>
+    <string name="dice_text_5">5</string>
+    <string name="dice_text_6">6</string>
+    <string name="dice_text_7">7</string>
+    <string name="dice_text_8">8</string>
+    <string name="dice_text_9">9</string>
+    <string name="resultTitle">Il risultato è:</string>
 </resources>

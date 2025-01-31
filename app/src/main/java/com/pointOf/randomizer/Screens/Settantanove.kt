@@ -3,6 +3,7 @@ package com.pointOf.randomizer.Screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -47,12 +49,7 @@ import com.pointOf.randomizer.R
 import com.pointOf.randomizer.navigation.AppRouter
 import com.pointOf.randomizer.navigation.Screen
 import com.pointOf.randomizer.navigation.SystemBackButtonHandler
-
-
-
-
-
-
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -103,33 +100,40 @@ fun Settantanove() {
 
 @Composable
 fun SettantanoveData() {
-    var result by remember { mutableStateOf( 1) }
-    var result2 by remember { mutableStateOf( 1) }
-    val imageResource = when(result) {
-        1 -> R.drawable.dice_0
-        2 -> R.drawable.dice_1b
-        3 -> R.drawable.dice_2b
-        4 -> R.drawable.dice_3
-        5 -> R.drawable.dice_4
-        6 -> R.drawable.dice_5
-        7 -> R.drawable.dice_6
-        else -> R.drawable.dice_7
-    }
-    val imageResource2 = when(result2) {
-        1 -> R.drawable.dice_0
-        2 -> R.drawable.dice_1b
-        3 -> R.drawable.dice_2b
-        4 -> R.drawable.dice_3
-        5 -> R.drawable.dice_4
-        6 -> R.drawable.dice_5
-        7 -> R.drawable.dice_6
-        8 -> R.drawable.dice_7
-        9 -> R.drawable.dice_8
-        else -> R.drawable.dice_9
-    }
+        var result by remember { mutableStateOf(1) }
+        var result2 by remember { mutableStateOf(1) }
+
+        // Mappa per associare il valore di 'result' a un'immagine e a un testo
+        val diceData = mapOf(
+            1 to Pair(R.drawable.dice_0, R.string.dice_text_0),
+            2 to Pair(R.drawable.dice_1b, R.string.dice_text_1),
+            3 to Pair(R.drawable.dice_2b, R.string.dice_text_2),
+            4 to Pair(R.drawable.dice_3, R.string.dice_text_3),
+            5 to Pair(R.drawable.dice_4, R.string.dice_text_4),
+            6 to Pair(R.drawable.dice_5, R.string.dice_text_5),
+            7 to Pair(R.drawable.dice_6, R.string.dice_text_6),
+            8 to Pair(R.drawable.dice_7, R.string.dice_text_7)
+        )
+        val diceData2 = mapOf(
+            1 to Pair(R.drawable.dice_0, R.string.dice_text_0),
+            2 to Pair(R.drawable.dice_1b, R.string.dice_text_1),
+            3 to Pair(R.drawable.dice_2b, R.string.dice_text_2),
+            4 to Pair(R.drawable.dice_3, R.string.dice_text_3),
+            5 to Pair(R.drawable.dice_4, R.string.dice_text_4),
+            6 to Pair(R.drawable.dice_5, R.string.dice_text_5),
+            7 to Pair(R.drawable.dice_6, R.string.dice_text_6),
+            8 to Pair(R.drawable.dice_7, R.string.dice_text_7),
+            9 to Pair(R.drawable.dice_8, R.string.dice_text_8),
+            10 to Pair(R.drawable.dice_9, R.string.dice_text_9)
+        )
+
+        // Ottieni l'immagine e il testo corrispondenti a 'result'
+        val (imageResource, textResource) = diceData.getOrDefault(result, Pair(R.drawable.dice_0, R.string.dice_text_0))
+        val (imageResource2, textResource2) = diceData2.getOrDefault(result2, Pair(R.drawable.dice_0, R.string.dice_text_0))
+
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
-    Column (modifier = Modifier){
+    Column (modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally){
 
         Row (modifier = Modifier
             .fillMaxWidth()
@@ -163,6 +167,21 @@ fun SettantanoveData() {
                 )
             }
         }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+         Row (horizontalArrangement = Arrangement.Center){
+            Column(horizontalAlignment = Alignment.CenterHorizontally){
+                Text(stringResource(R.string.resultTitle))
+                Spacer(modifier = Modifier.height(1.dp))
+                Row(horizontalArrangement = Arrangement.Center) {
+                    Text(text = stringResource(textResource), fontSize = 35.sp, fontWeight = FontWeight.Bold)
+                    Spacer(modifier = Modifier.width(1.dp))
+                    Text(text = stringResource(textResource2), fontSize = 35.sp, fontWeight = FontWeight.Bold)
+                }
+            }
+        }
+
 
         Spacer(modifier = Modifier.height(10.dp))
 

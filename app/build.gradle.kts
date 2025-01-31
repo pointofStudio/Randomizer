@@ -16,8 +16,8 @@ android {
         applicationId = "com.pointOf.randomizer"
         minSdk = 24
         targetSdk = 35
-        versionCode = 2
-        versionName = "2.5"
+        versionCode = 3
+        versionName = "3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -61,8 +61,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation("com.google.firebase:firebase-crashlytics")
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 
-    implementation("com.google.firebase:firebase-appdistribution-api-ktx:16.0.0-beta14")
+    implementation(libs.firebase.appdistribution)
 }

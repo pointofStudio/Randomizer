@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -91,15 +93,20 @@ fun SixFaces() {
 fun SixFacesData() {
     var result by remember { mutableStateOf( 1) }
     var result2 by remember { mutableStateOf( 1) }
-    val imageResource = when(result) {
-        1 -> R.drawable.dice_0
-        2 -> R.drawable.dice_1b
-        3 -> R.drawable.dice_2b
-        4 -> R.drawable.dice_3
-        5 -> R.drawable.dice_4
-        6 -> R.drawable.dice_5
-        else -> R.drawable.dice_6
-    }
+    val diceData = mapOf(
+        1 to Pair(R.drawable.dice_0, R.string.dice_text_0),
+        2 to Pair(R.drawable.dice_1b, R.string.dice_text_1),
+        3 to Pair(R.drawable.dice_2b, R.string.dice_text_2),
+        4 to Pair(R.drawable.dice_3, R.string.dice_text_3),
+        5 to Pair(R.drawable.dice_4, R.string.dice_text_4),
+        6 to Pair(R.drawable.dice_5, R.string.dice_text_5),
+        7 to Pair(R.drawable.dice_6, R.string.dice_text_6)
+    )
+
+    val (imageResource, textResource) = diceData.getOrDefault(result, Pair(R.drawable.dice_0, R.string.dice_text_0))
+
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
 
     Column (modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally){
 
@@ -108,10 +115,24 @@ fun SixFacesData() {
                 painter = painterResource(imageResource),
                 contentDescription = result.toString(),
                 modifier = Modifier
-                    .height(200.dp)
-                    .width(200.dp)
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
             )
 
+
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row (horizontalArrangement = Arrangement.Center){
+            Column(horizontalAlignment = Alignment.CenterHorizontally){
+                Text(stringResource(R.string.resultTitle))
+                Spacer(modifier = Modifier.height(1.dp))
+                Row(horizontalArrangement = Arrangement.Center) {
+                    Text(text = stringResource(textResource), fontSize = 35.sp, fontWeight = FontWeight.Bold)
+
+                }
+            }
+        }
 
 
         Spacer(modifier = Modifier.height(10.dp))
