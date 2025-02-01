@@ -15,7 +15,7 @@
 -->
 <resources>
     <string name="app_name">Randomizer</string>
-    <string name="roll">"Roll "</string>
+    <string name="roll">"Roll"</string>
     <string name="additionalFormText">Give us a feedback about this app</string>
     <string name="sixfaces">Up to 06</string>
     <string name="ventinovefaces">Up to 29</string>
@@ -24,8 +24,8 @@
     <string name="cinquantanovefaces">Up to 59</string>
     <string name="settantanovefaces">Up to 79</string>
     <string name="ottantanovefaces">Up to 89</string>
-
     <string name="novantanovefaces">Up to 99</string>
+
     <string name="welcome">Welcome to Randomizer</string>
     <string name="description">Select the maximum result</string>
     <string name="dice_text_0">0</string>
@@ -39,6 +39,8 @@
     <string name="dice_text_8">8</string>
     <string name="dice_text_9">9</string>
     <string name="resultTitle">The result is:</string>
+
+    <string name="notZero">0 is not a result</string>
 
 
 </resources>

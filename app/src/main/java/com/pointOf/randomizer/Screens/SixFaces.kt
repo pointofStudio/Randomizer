@@ -37,7 +37,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pointOf.randomizer.R
@@ -46,6 +48,7 @@ import com.pointOf.randomizer.navigation.Screen
 import com.pointOf.randomizer.navigation.SystemBackButtonHandler
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun SixFaces() {
     Scaffold(
@@ -88,22 +91,20 @@ fun SixFaces() {
     }
 }
 
-
+@Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun SixFacesData() {
     var result by remember { mutableStateOf( 1) }
-    var result2 by remember { mutableStateOf( 1) }
     val diceData = mapOf(
-        1 to Pair(R.drawable.dice_0, R.string.dice_text_0),
-        2 to Pair(R.drawable.dice_1b, R.string.dice_text_1),
-        3 to Pair(R.drawable.dice_2b, R.string.dice_text_2),
-        4 to Pair(R.drawable.dice_3, R.string.dice_text_3),
-        5 to Pair(R.drawable.dice_4, R.string.dice_text_4),
-        6 to Pair(R.drawable.dice_5, R.string.dice_text_5),
-        7 to Pair(R.drawable.dice_6, R.string.dice_text_6)
+        1 to Pair(R.drawable.dice_1b, R.string.dice_text_1),
+        2 to Pair(R.drawable.dice_2b, R.string.dice_text_2),
+        3 to Pair(R.drawable.dice_3, R.string.dice_text_3),
+        4 to Pair(R.drawable.dice_4, R.string.dice_text_4),
+        5 to Pair(R.drawable.dice_5, R.string.dice_text_5),
+        6 to Pair(R.drawable.dice_6, R.string.dice_text_6),
     )
 
-    val (imageResource, textResource) = diceData.getOrDefault(result, Pair(R.drawable.dice_0, R.string.dice_text_0))
+    val (imageResource, textResource) = diceData.getOrDefault(result, Pair(R.drawable.dice_1b, R.string.dice_text_1))
 
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
@@ -118,10 +119,10 @@ fun SixFacesData() {
                     .fillMaxWidth()
                     .aspectRatio(1f),
             )
-
-
-
         Spacer(modifier = Modifier.height(10.dp))
+
+
+
 
         Row (horizontalArrangement = Arrangement.Center){
             Column(horizontalAlignment = Alignment.CenterHorizontally){
@@ -133,6 +134,10 @@ fun SixFacesData() {
                 }
             }
         }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Text(stringResource(R.string.notZero), fontWeight = FontWeight.Thin, fontStyle = FontStyle.Italic, fontSize = 12.sp)
 
 
         Spacer(modifier = Modifier.height(10.dp))
