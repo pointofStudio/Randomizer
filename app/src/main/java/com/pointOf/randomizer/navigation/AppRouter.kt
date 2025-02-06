@@ -20,6 +20,10 @@ sealed class Screen(){
     object Ottantanove: Screen()
     object Novantanove: Screen()
 
+    object Roller: Screen()
+
+    object Credits: Screen()
+
 }
 
 object AppRouter {
