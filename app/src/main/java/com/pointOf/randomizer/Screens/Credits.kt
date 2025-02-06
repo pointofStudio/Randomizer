@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +18,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -95,6 +97,13 @@ fun Credits(){
                     AnnotatedLinkText()
                 }
             }
+            Column(
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CrashButtonScreen()
+                Spacer(modifier = Modifier.height(30.dp))
+            }
 
         }
     }
@@ -138,4 +147,18 @@ fun AnnotatedLinkText() {
             },
         text = annotatedText
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CrashButtonScreen() {
+    OutlinedButton(
+        onClick = {
+            throw RuntimeException("Test Crash") // Forza un crash
+        },
+        modifier = Modifier
+            .height(1.dp)
+            .width(1.dp),
+        colors = androidx.compose.material3.ButtonDefaults.buttonColors(Color.Transparent)
+    ) {}
 }
