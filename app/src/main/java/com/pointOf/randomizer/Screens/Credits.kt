@@ -119,7 +119,7 @@ fun AnnotatedLinkText() {
                 textDecoration = TextDecoration.Underline
             )
         ) {
-            append("this link")
+            append(stringResource(R.string.link))
         }
         pop()
     }

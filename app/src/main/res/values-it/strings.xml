@@ -28,4 +28,6 @@
     <string name="thenumberis">Il numero di dadi è:</string>
     <string name="roller">Dadi semplici</string>
     <string name="rollerexplain">Seleziona quanti dadi vuoi visualizzare</string>
+    <string name="creditstext2">Visita la pagina GitHub ufficiale a</string>
+    <string name="link">questo link</string>
 </resources>
