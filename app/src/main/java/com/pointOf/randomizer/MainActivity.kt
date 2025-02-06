@@ -322,13 +322,7 @@ fun App() {
                 }
 
             }
-            Column(
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CrashButtonScreen()
-                Spacer(modifier = Modifier.height(30.dp))
-            }
+
 
         }
 
@@ -397,19 +391,7 @@ fun HomeApp() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun CrashButtonScreen() {
-    OutlinedButton(
-        onClick = {
-            throw RuntimeException("Test Crash") // Forza un crash
-        },
-        modifier = Modifier
-            .height(1.dp)
-            .width(1.dp),
-        colors = androidx.compose.material3.ButtonDefaults.buttonColors(Color.Transparent)
-    ) {}
-}
+
 
 
 @Composable
