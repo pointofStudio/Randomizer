@@ -16,8 +16,8 @@ android {
         applicationId = "com.pointOf.randomizer"
         minSdk = 24
         targetSdk = 35
-        versionCode = 3
-        versionName = "3.5"
+        versionCode = 4
+        versionName = "4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

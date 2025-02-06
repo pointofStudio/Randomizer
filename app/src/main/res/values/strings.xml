@@ -41,6 +41,15 @@
     <string name="resultTitle">The result is:</string>
 
     <string name="notZero">0 is not a result</string>
+    <string name="thenumberis">The numer of dices is:</string>
+    <string name="roller">Simple dice</string>
+    <string name="rollerexplain">Select how many dice you want to display</string>
+    <string name="credits" translatable="false">Credits</string>
+    <string name="creditstext" translatable="false">Randomizer</string>
+    <string name="creditstextintro" translatable="false">Made by: Point Of Studio</string>
+    <string name="creditstext2">Visit the official GitHub Page at </string>
+    <string name="link">this link</string>
+
 
 
 </resources>

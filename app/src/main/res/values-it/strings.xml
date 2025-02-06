@@ -12,7 +12,7 @@
     <string name="ottantanovefaces">Fino a 89</string>
     <string name="novantanovefaces">Fino a 99</string>
     <string name="welcome">Benvenuto in Randomizer</string>
-    <string name="description">Seleziona il massimo riusultato</string>
+    <string name="description">Seleziona il massimo risultato</string>
     <string name="dice_text_0">0</string>
     <string name="dice_text_1">1</string>
     <string name="dice_text_2">2</string>
@@ -25,4 +25,9 @@
     <string name="dice_text_9">9</string>
     <string name="resultTitle">Il risultato è:</string>
     <string name="notZero">0 non è un risultato</string>
+    <string name="thenumberis">Il numero di dadi è:</string>
+    <string name="roller">Dadi semplici</string>
+    <string name="rollerexplain">Seleziona quanti dadi vuoi visualizzare</string>
+    <string name="creditstext2">Visita la pagina GitHub ufficiale a</string>
+    <string name="link">questo link</string>
 </resources>

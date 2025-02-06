@@ -14,6 +14,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -55,9 +56,11 @@ import com.google.firebase.appdistribution.FirebaseAppDistributionException
 import com.google.firebase.appdistribution.InterruptionLevel
 import com.google.firebase.appdistribution.appDistribution
 import com.pointOf.randomizer.Screens.Cinquantanove
+import com.pointOf.randomizer.Screens.Credits
 import com.pointOf.randomizer.Screens.Novantanove
 import com.pointOf.randomizer.Screens.Ottantanove
 import com.pointOf.randomizer.Screens.Quarantanove
+import com.pointOf.randomizer.Screens.Roller
 import com.pointOf.randomizer.Screens.Settantanove
 import com.pointOf.randomizer.Screens.SixFaces
 import com.pointOf.randomizer.Screens.Trentanove
@@ -196,7 +199,10 @@ fun App() {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Image(
                         painter = painterResource(R.drawable.dice_6),
-                        contentDescription = stringResource(R.string.app_name)
+                        contentDescription = stringResource(R.string.app_name),
+                        modifier = Modifier.clickable {
+                            AppRouter.navigateTo(Screen.Credits)
+                        }
                     )
                     Text(
                         stringResource(R.string.welcome),
@@ -304,6 +310,15 @@ fun App() {
                             Text(stringResource(R.string.novantanovefaces))
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Button(
+                        onClick = { AppRouter.navigateTo(Screen.Roller) },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.roller))
+                    }
                 }
 
             }
@@ -364,6 +379,14 @@ fun HomeApp() {
 
                 is Screen.Novantanove -> {
                     Novantanove()
+                }
+
+                is Screen.Roller -> {
+                    Roller()
+                }
+
+                is Screen.Credits -> {
+                    Credits()
                 }
 
             }
@@ -483,3 +506,6 @@ fun CustomButtonLayout(
         }
     }
 }
+
+
+//fulviofan
