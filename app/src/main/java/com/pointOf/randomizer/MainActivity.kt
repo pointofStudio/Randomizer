@@ -16,9 +16,7 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -31,7 +29,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -40,8 +37,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -52,7 +47,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.google.firebase.Firebase
-import com.google.firebase.appdistribution.FirebaseAppDistributionException
 import com.google.firebase.appdistribution.InterruptionLevel
 import com.google.firebase.appdistribution.appDistribution
 import com.pointOf.randomizer.Screens.Cinquantanove
@@ -122,41 +116,39 @@ class MainActivity : ComponentActivity() {
 
                 HomeApp()
             }
-            LaunchedEffect(key1 = true) {
-                checkForAppUpdates()
-            }
+
         }
     }
 }
 
 
-private fun checkForAppUpdates() {
-    val firebaseAppDistribution = Firebase.appDistribution
-    firebaseAppDistribution.updateIfNewReleaseAvailable()
-        .addOnProgressListener { updateProgress ->
-            // (Optional) Implement custom progress updates in addition to
-            // automatic NotificationManager updates.
-            val progress =
-                updateProgress.apkBytesDownloaded * 100 / updateProgress.apkFileTotalBytes
-            println("Download progress: $progress%")
-        }
-        .addOnFailureListener { e ->
-            // (Optional) Handle errors.
-            if (e is FirebaseAppDistributionException) {
-                when (e.errorCode) {
-                    FirebaseAppDistributionException.Status.NOT_IMPLEMENTED -> {
-                        // SDK did nothing. This is expected when building for Play.
-                        println("App Distribution: NOT_IMPLEMENTED")
-                    }
-
-                    else -> {
-                        // Handle other errors.
-                        println("App Distribution error: ${e.errorCode}")
-                    }
-                }
-            }
-        }
-}
+//private fun checkForAppUpdates() {
+//    val firebaseAppDistribution = Firebase.appDistribution
+//    firebaseAppDistribution.updateIfNewReleaseAvailable()
+//        .addOnProgressListener { updateProgress ->
+//            // (Optional) Implement custom progress updates in addition to
+//            // automatic NotificationManager updates.
+//            val progress =
+//                updateProgress.apkBytesDownloaded * 100 / updateProgress.apkFileTotalBytes
+//            println("Download progress: $progress%")
+//        }
+//        .addOnFailureListener { e ->
+//            // (Optional) Handle errors.
+//            if (e is FirebaseAppDistributionException) {
+//                when (e.errorCode) {
+//                    FirebaseAppDistributionException.Status.NOT_IMPLEMENTED -> {
+//                        // SDK did nothing. This is expected when building for Play.
+//                        println("App Distribution: NOT_IMPLEMENTED")
+//                    }
+//
+//                    else -> {
+//                        // Handle other errors.
+//                        println("App Distribution error: ${e.errorCode}")
+//                    }
+//                }
+//            }
+//        }
+//}
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -390,104 +382,3 @@ fun HomeApp() {
 
     }
 }
-
-
-
-
-@Composable
-fun ButtonGrid() {
-    Box(modifier = Modifier.padding(16.dp)) {
-        CustomButtonLayout(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Button(
-                onClick = { AppRouter.navigateTo(Screen.SixFaces) },
-                contentPadding = PaddingValues(10.dp),
-            ) {
-                Text(stringResource(R.string.sixfaces))
-            }
-            Button(
-                onClick = { AppRouter.navigateTo(Screen.Ventinove) },
-                contentPadding = PaddingValues(10.dp),
-            ) {
-                Text(stringResource(R.string.ventinovefaces))
-            }
-            Button(
-                onClick = { AppRouter.navigateTo(Screen.Trentanove) },
-                contentPadding = PaddingValues(10.dp),
-            ) {
-                Text(stringResource(R.string.trentanovefaces))
-            }
-            Button(
-                onClick = { AppRouter.navigateTo(Screen.Quarantanove) },
-                contentPadding = PaddingValues(10.dp),
-            ) {
-                Text(stringResource(R.string.quarantanovefaces))
-            }
-            Button(
-                onClick = { AppRouter.navigateTo(Screen.Cinquantanove) },
-                contentPadding = PaddingValues(10.dp),
-            ) {
-                Text(stringResource(R.string.cinquantanovefaces))
-            }
-            Button(
-                onClick = { AppRouter.navigateTo(Screen.Settantanove) },
-                contentPadding = PaddingValues(10.dp),
-            ) {
-                Text(stringResource(R.string.settantanovefaces))
-            }
-            Button(
-                onClick = { AppRouter.navigateTo(Screen.Ottantanove) },
-                contentPadding = PaddingValues(10.dp),
-            ) {
-                Text(stringResource(R.string.ottantanovefaces))
-            }
-            Button(
-                onClick = { AppRouter.navigateTo(Screen.Novantanove) },
-                contentPadding = PaddingValues(10.dp),
-            ) {
-                Text(stringResource(R.string.novantanovefaces))
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-        }
-    }
-}
-
-@Composable
-fun CustomButtonLayout(
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit,
-) {
-    Layout(
-        modifier = modifier,
-        content = content
-    ) { measurables, constraints ->
-        val buttonMeasurables = measurables.dropLast(1)
-        val spacerMeasurable = measurables.lastOrNull()
-
-        val spacerWidth = spacerMeasurable?.maxIntrinsicWidth(constraints.maxHeight) ?: 0
-        val buttonWidth = (constraints.maxWidth - spacerWidth) / 2
-        val buttonConstraints = constraints.copy(minWidth = buttonWidth, maxWidth = buttonWidth)
-        val buttonPlaceables = buttonMeasurables.map { measurable ->
-            measurable.measure(buttonConstraints)
-        }
-        val spacerPlaceable =
-            spacerMeasurable?.measure(constraints) ?: return@Layout layout(0, 0) {}
-
-        layout(constraints.maxWidth, constraints.maxHeight) {
-            var xPos = 0
-            var yPos = 0
-            buttonPlaceables.forEachIndexed { index, placeable ->
-                val row = index / 2
-                val col = index % 2
-                xPos = col * (buttonWidth + spacerWidth)
-                yPos = row * placeable.height
-                placeable.placeRelative(xPos, yPos)
-            }
-            spacerPlaceable.placeRelative(buttonWidth, 0)
-        }
-    }
-}
-
-
-//fulviofan
