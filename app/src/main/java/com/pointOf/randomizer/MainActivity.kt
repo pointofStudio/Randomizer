@@ -25,6 +25,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -67,53 +69,9 @@ import com.pointOf.randomizer.ui.theme.RandomizerTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Firebase.appDistribution.showFeedbackNotification(
-            // Text providing notice to your testers about collection and
-            // processing of their feedback data
-            R.string.additionalFormText,
-            // The level of interruption for the notification
-            InterruptionLevel.MIN
-        )
         enableEdgeToEdge()
         setContent {
             RandomizerTheme {
-                val requestPermissionLauncher =
-                    rememberLauncherForActivityResult(
-                        ActivityResultContracts.RequestPermission()
-                    ) { isGranted: Boolean ->
-                        if (isGranted) {
-                            // Permission granted, proceed with sending notifications
-                            println("Notification permission granted")
-                        } else {
-                            // Permission denied, handle accordingly
-                            println("Notification permission denied")
-                        }
-                    }
-                val context = LocalContext.current
-                LaunchedEffect(key1 = true) {
-                    val sharedPreferences =
-                        context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                    val isFirstTime = sharedPreferences.getBoolean("isFirstTime", true)
-                    if (isFirstTime) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                            val permissionCheckResult = ContextCompat.checkSelfPermission(
-                                context,
-                                android.Manifest.permission.POST_NOTIFICATIONS
-                            )
-                            if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
-                                // Permission is granted
-                                println("Notification permission already granted")
-                            } else {
-                                // Permission is not granted, request it
-                                requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
-                            }
-                        }
-                        sharedPreferences.edit().putBoolean("isFirstTime", false).apply()
-                    }
-                }
-
-
-
                 HomeApp()
             }
 
@@ -122,33 +80,7 @@ class MainActivity : ComponentActivity() {
 }
 
 
-//private fun checkForAppUpdates() {
-//    val firebaseAppDistribution = Firebase.appDistribution
-//    firebaseAppDistribution.updateIfNewReleaseAvailable()
-//        .addOnProgressListener { updateProgress ->
-//            // (Optional) Implement custom progress updates in addition to
-//            // automatic NotificationManager updates.
-//            val progress =
-//                updateProgress.apkBytesDownloaded * 100 / updateProgress.apkFileTotalBytes
-//            println("Download progress: $progress%")
-//        }
-//        .addOnFailureListener { e ->
-//            // (Optional) Handle errors.
-//            if (e is FirebaseAppDistributionException) {
-//                when (e.errorCode) {
-//                    FirebaseAppDistributionException.Status.NOT_IMPLEMENTED -> {
-//                        // SDK did nothing. This is expected when building for Play.
-//                        println("App Distribution: NOT_IMPLEMENTED")
-//                    }
-//
-//                    else -> {
-//                        // Handle other errors.
-//                        println("App Distribution error: ${e.errorCode}")
-//                    }
-//                }
-//            }
-//        }
-//}
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -157,6 +89,7 @@ class MainActivity : ComponentActivity() {
 fun App() {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
+    
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -180,11 +113,14 @@ fun App() {
                 .padding(innerPadding),
             color = MaterialTheme.colorScheme.background
         ) {
+            val scrollState = rememberScrollState()
+            
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .fillMaxWidth()
-                    .padding(5.dp),
+                    .padding(5.dp)
+                    .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
